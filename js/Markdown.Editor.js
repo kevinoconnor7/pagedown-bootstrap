@@ -1037,24 +1037,34 @@
 
 			// The main dialog box.
 			dialog = doc.createElement("div");
-			dialog.className = "modal hide fade";
+			dialog.className = "modal fade";
 			dialog.style.display = "none";
+
+			// The modal-dialog div.
+			var div_dialog = doc.createElement("div");
+			div_dialog.className = "modal-dialog";
+			dialog.appendChild(div_dialog);
+
+			// The modal-content div.
+			var content = doc.createElement("div");
+			content.className = "modal-content";
+			div_dialog.appendChild(content);
 
 			// The header.
 			var header = doc.createElement("div");
 			header.className = "modal-header";
 			header.innerHTML = '<a class="close" data-dismiss="modal">×</a> <h3>'+title+'</h3>';
-			dialog.appendChild(header);
+			content.appendChild(header);
 
 			// The body.
 			var body = doc.createElement("div");
 			body.className = "modal-body";
-			dialog.appendChild(body);
+			content.appendChild(body);
 
 			// The footer.
 			var footer = doc.createElement("div");
 			footer.className = "modal-footer";
-			dialog.appendChild(footer);
+			content.appendChild(footer);
 
 			// The dialog text.
 			var question = doc.createElement("p");
@@ -1073,6 +1083,7 @@
 			// The input text box
 			input = doc.createElement("input");
 			input.type = "text";
+			input.className = "form-control";
 			input.value = defaultInputText;
 			style = input.style;
 			style.display = "block";
@@ -1359,8 +1370,8 @@
 			}
 
 			group1 = makeGroup(1);
-			buttons.bold = makeButton("wmd-bold-button", "Bold - Ctrl+B", "icon-bold", bindCommand("doBold"), group1);
-			buttons.italic = makeButton("wmd-italic-button", "Italic - Ctrl+I", "icon-italic", bindCommand("doItalic"), group1);
+			buttons.bold = makeButton("wmd-bold-button", "Bold - Ctrl+B", "glyphicon glyphicon-bold", bindCommand("doBold"), group1);
+			buttons.italic = makeButton("wmd-italic-button", "Italic - Ctrl+I", "glyphicon glyphicon-italic", bindCommand("doItalic"), group1);
 			
 			group2 = makeGroup(2);
 			buttons.link = makeButton("wmd-link-button", "Link - Ctrl+L", "icon-link", bindCommand(function (chunk, postProcessing) {
@@ -1368,7 +1379,7 @@
 			}), group2);
 			buttons.quote = makeButton("wmd-quote-button", "Blockquote - Ctrl+Q", "icon-blockquote", bindCommand("doBlockquote"), group2);
 			buttons.code = makeButton("wmd-code-button", "Code Sample - Ctrl+K", "icon-code", bindCommand("doCode"), group2);
-			buttons.image = makeButton("wmd-image-button", "Image - Ctrl+G", "icon-picture", bindCommand(function (chunk, postProcessing) {
+			buttons.image = makeButton("wmd-image-button", "Image - Ctrl+G", "glyphicon glyphicon-picture", bindCommand(function (chunk, postProcessing) {
 				return this.doLinkOrImage(chunk, postProcessing, true);
 			}), group2);
 
@@ -1390,7 +1401,7 @@
 				"Redo - Ctrl+Y" :
 				"Redo - Ctrl+Shift+Z"; // mac and other non-Windows platforms
 
-			buttons.redo = makeButton("wmd-redo-button", redoTitle, "icon-share-alt", null, group4);
+			buttons.redo = makeButton("wmd-redo-button", redoTitle, "glyphicon glyphicon-share-alt", null, group4);
 			buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
 
 			if (helpOptions) {
@@ -1398,7 +1409,7 @@
 				group5.className = group5.className + " pull-right";
 				var helpButton = document.createElement("button");
 				var helpButtonImage = document.createElement("i");
-				helpButtonImage.className = "icon-question-sign";
+				helpButtonImage.className = "glyphicon glyphicon-question-sign";
 				helpButton.appendChild(helpButtonImage);
 				helpButton.className = "btn";
 				helpButton.id = "wmd-help-button" + postfix;

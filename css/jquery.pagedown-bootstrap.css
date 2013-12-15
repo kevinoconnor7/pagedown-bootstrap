@@ -2,8 +2,9 @@
   width: 100%;
 }
 .wmd-input {
-  height: 300px;
+  height: 300px !important;
   width: 100%;
+  margin-bottom: 10px;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -30,6 +31,7 @@
 .icon-hr-line,
 .icon-undo {
   background-image: url(../img/Markdown.Editor.Icons.png);
+  padding: 0px 16px 0 0;
 }
 .icon-link {
   background-position: 0      0;

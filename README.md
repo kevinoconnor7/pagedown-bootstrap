@@ -4,7 +4,7 @@ A **jQuery** plugin that dynamically generates a **WYSIWYG** editor for **Markdo
 
 ## Requirements
 * [jQuery 1.9+](http://jquery.com) (you know you should be keeping it up to date)
-* [Twitter Bootstrap 2.3+](http://twitter.github.com/bootstrap/)
+* [Twitter Bootstrap 3.0.3+](http://getbootstrap.com/)
 
 ## Releases
 
