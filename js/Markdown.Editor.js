@@ -1132,11 +1132,11 @@
 				range.select();
 			}
 
-			$(dialog).on('shown', function () {
+			$(dialog).on('shown.bs.modal', function () {
 				input.focus();
 			})
 
-			$(dialog).on('hidden', function () {
+			$(dialog).on('hidden.bs.modal', function () {
 				dialog.parentNode.removeChild(dialog);
 			})
 
