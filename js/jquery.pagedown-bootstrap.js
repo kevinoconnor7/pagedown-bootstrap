@@ -10,32 +10,35 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
  * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
+ *
  */
 
 (function( $ ){
 
-	$.fn.pagedownBootstrap = function( options ) {  
+	$.fn.pagedownBootstrap = function( options ) {
 
 		// Default settings
 		var settings = $.extend( {
 			'sanitize'				: true,
 			'help'						: null,
-			'hooks'						: Array()
+			'hooks'						: Array(),
+			'converter_hooks'           : Array(),
+			'editor_hooks'              : Array()
 		}, options);
+		settings.converter_hooks.concat(settings.hooks);
 
-		return this.each(function() {   
+		return this.each(function() {
 
-			//Setup converter   
+			//Setup converter
 			var converter = null;
 			if(settings.sanitize)
 			{
@@ -44,11 +47,11 @@
 				converter = new Markdown.Converter()
 			}
 
-			//Register hooks
-			for(var i in settings.hooks)
+			//Register converter hooks
+			for(var i in settings.converter_hooks)
 			{
-				var hook = settings.hooks[i];
-				if(typeof hook !== 'object' || typeof hook.event === 'undefined' 
+				var hook = settings.converter_hooks[i];
+				if(typeof hook !== 'object' || typeof hook.event === 'undefined'
 						|| typeof hook.callback !== 'function')
 				{
 					//A bad hook object was given
@@ -85,7 +88,24 @@
 
 			//Setup editor
 			var editor = new Markdown.Editor(converter, "-"+idAppend.toString(), help);
-      editor.run();
+			editor.run();
+			//Register editor hooks
+			for(var i in settings.editor_hooks)
+			{
+				var hook = settings.editor_hooks[i];
+				if(typeof hook !== 'object' || typeof hook.event === 'undefined'
+					|| typeof hook.callback !== 'function')
+				{
+					//A bad hook object was given
+					continue;
+				}
+
+				if(hook.event == 'insertImageDialog')
+					editor.hooks.set(hook.event, hook.callback);
+				else
+					editor.hooks.chain(hook.event, hook.callback);
+
+			}
 
 		});
 
