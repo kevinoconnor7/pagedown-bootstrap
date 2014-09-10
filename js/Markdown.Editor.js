@@ -33,6 +33,9 @@
 				redo: {
 					alternative: "Redo - Ctrl+Y",
 					default: "Redo - Ctrl+Shift+Z"
+				},
+				help: {
+					hover: "Markdown Editing Help"
 				}
 			},
 			modal : {
@@ -1446,7 +1449,7 @@
 				helpButton.className = "btn";
 				helpButton.id = "wmd-help-button" + postfix;
 				helpButton.isHelp = true;
-				helpButton.title = helpOptions.title || defaultHelpHoverTitle;
+				helpButton.title = helpOptions.title || TEXT.buttons.help.hover;
 				$(helpButton).tooltip({placement: 'bottom', container: 'body'})
 				helpButton.onclick = helpOptions.handler;
 
