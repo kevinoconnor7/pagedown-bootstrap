@@ -88,7 +88,7 @@
 			}
 
 			//Setup editor
-			var editor = new Markdown.Editor(converter, "-"+idAppend.toString(), help, translations);
+			var editor = new Markdown.Editor(converter, "-"+idAppend.toString(), help, settings.translations);
 			editor.run();
 			//Register editor hooks
 			for(var i in settings.editor_hooks)

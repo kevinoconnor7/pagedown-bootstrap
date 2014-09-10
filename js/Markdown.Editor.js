@@ -95,6 +95,8 @@
 
 		this.getConverter = function () { return markdownConverter; }
 
+		TRANSLATIONS = $.extend(TRANSLATIONS, translations);
+
 		var that = this,
 			panels;
 
@@ -127,8 +129,6 @@
 
 			forceRefresh();
 		};
-
-		TRANSLATIONS = $.merge(TRANSLATIONS, translations);
 	}
 
 	// before: contains all the text in the input box BEFORE the selection.
