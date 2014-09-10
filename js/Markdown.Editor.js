@@ -56,7 +56,7 @@
 			},
 			callback: {
 				description: {
-					image: "enter image description here"
+					image: "enter image description here",
 					link: "enter link description here"
 				}
 			}
