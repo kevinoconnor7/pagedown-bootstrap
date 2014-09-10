@@ -1641,7 +1641,7 @@
 			var that = this;
 			// The function to be executed when you enter a link and press OK or Cancel.
 			// Marks up the link and adds the ref.
-			var linkEnteredCallback = function (link, descritpionText) {
+			var linkEnteredCallback = function (link, descriptionText) {
 
 				if (link !== null) {
 					// (                          $1
