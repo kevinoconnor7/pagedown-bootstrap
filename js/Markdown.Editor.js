@@ -17,7 +17,7 @@
 			isOpera: /opera/.test(nav.userAgent.toLowerCase())
 		},
 
-    TRANSLATIONS = {
+    TEXT = {
 			icons: {
 				bold: "Bold - Ctrl+B",
 				italic: "Italic - Ctrl+I",
@@ -81,7 +81,7 @@
 	// - getConverter() returns the markdown converter object that was passed to the constructor
 	// - run() actually starts the editor; should be called after all necessary plugins are registered. Calling this more than once is a no-op.
 	// - refreshPreview() forces the preview to be updated. This method is only available after run() was called.
-	Markdown.Editor = function (markdownConverter, idPostfix, help, translations) {
+	Markdown.Editor = function (markdownConverter, idPostfix, help, text) {
 
 		idPostfix = idPostfix || "";
 
@@ -95,8 +95,7 @@
 
 		this.getConverter = function () { return markdownConverter; }
 
-		// merge text1 in to text2 (recursive)
-		$.extend(true, TRANSLATIONS, translations);
+		$.extend(true, TEXT, text);
 
 		var that = this,
 			panels;
@@ -1403,36 +1402,36 @@
 			}
 
 			group1 = makeGroup(1);
-			buttons.bold = makeButton("wmd-bold-button", TRANSLATIONS.icons.bold, "fa fa-bold", bindCommand("doBold"), group1);
-			buttons.italic = makeButton("wmd-italic-button", TRANSLATIONS.icons.italic, "fa fa-italic", bindCommand("doItalic"), group1);
+			buttons.bold = makeButton("wmd-bold-button", TEXT.icons.bold, "fa fa-bold", bindCommand("doBold"), group1);
+			buttons.italic = makeButton("wmd-italic-button", TEXT.icons.italic, "fa fa-italic", bindCommand("doItalic"), group1);
 
 			group2 = makeGroup(2);
-			buttons.link = makeButton("wmd-link-button", TRANSLATIONS.icons.link, "fa fa-link", bindCommand(function (chunk, postProcessing) {
+			buttons.link = makeButton("wmd-link-button", TEXT.icons.link, "fa fa-link", bindCommand(function (chunk, postProcessing) {
 				return this.doLinkOrImage(chunk, postProcessing, false);
 			}), group2);
-			buttons.quote = makeButton("wmd-quote-button", TRANSLATIONS.icons.quote, "fa fa-quote-left", bindCommand("doBlockquote"), group2);
-			buttons.code = makeButton("wmd-code-button", TRANSLATIONS.icons.code, "fa fa-code", bindCommand("doCode"), group2);
-			buttons.image = makeButton("wmd-image-button", TRANSLATIONS.icons.image, "fa fa-picture-o", bindCommand(function (chunk, postProcessing) {
+			buttons.quote = makeButton("wmd-quote-button", TEXT.icons.quote, "fa fa-quote-left", bindCommand("doBlockquote"), group2);
+			buttons.code = makeButton("wmd-code-button", TEXT.icons.code, "fa fa-code", bindCommand("doCode"), group2);
+			buttons.image = makeButton("wmd-image-button", TEXT.icons.image, "fa fa-picture-o", bindCommand(function (chunk, postProcessing) {
 				return this.doLinkOrImage(chunk, postProcessing, true);
 			}), group2);
 
 			group3 = makeGroup(3);
-			buttons.olist = makeButton("wmd-olist-button", TRANSLATIONS.icons.olist, "fa fa-list-ol", bindCommand(function (chunk, postProcessing) {
+			buttons.olist = makeButton("wmd-olist-button", TEXT.icons.olist, "fa fa-list-ol", bindCommand(function (chunk, postProcessing) {
 				this.doList(chunk, postProcessing, true);
 			}), group3);
-			buttons.ulist = makeButton("wmd-ulist-button", TRANSLATIONS.icons.ulist, "fa fa-list-ul", bindCommand(function (chunk, postProcessing) {
+			buttons.ulist = makeButton("wmd-ulist-button", TEXT.icons.ulist, "fa fa-list-ul", bindCommand(function (chunk, postProcessing) {
 				this.doList(chunk, postProcessing, false);
 			}), group3);
-			buttons.heading = makeButton("wmd-heading-button", TRANSLATIONS.icons.heading, "fa fa-header", bindCommand("doHeading"), group3);
-			buttons.hr = makeButton("wmd-hr-button", TRANSLATIONS.icons.hr, "fa fa-ellipsis-h", bindCommand("doHorizontalRule"), group3);
+			buttons.heading = makeButton("wmd-heading-button", TEXT.icons.heading, "fa fa-header", bindCommand("doHeading"), group3);
+			buttons.hr = makeButton("wmd-hr-button", TEXT.icons.hr, "fa fa-ellipsis-h", bindCommand("doHorizontalRule"), group3);
 
 			group4 = makeGroup(4);
-			buttons.undo = makeButton("wmd-undo-button", TRANSLATIONS.icons.undo, "fa fa-undo", null, group4);
+			buttons.undo = makeButton("wmd-undo-button", TEXT.icons.undo, "fa fa-undo", null, group4);
 			buttons.undo.execute = function (manager) { if (manager) manager.undo(); };
 
 			var redoTitle = /win/.test(nav.platform.toLowerCase()) ?
-				TRANSLATIONS.icons.redo.default :
-				TRANSLATIONS.icons.redo.alternative; // mac and other non-Windows platforms
+				TEXT.icons.redo.default :
+				TEXT.icons.redo.alternative; // mac and other non-Windows platforms
 
 			buttons.redo = makeButton("wmd-redo-button", redoTitle, "fa fa-rotate-right", null, group4);
 			buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
@@ -1725,10 +1724,10 @@
 
 			if (isImage) {
 				if (!this.hooks.insertImageDialog(linkEnteredCallback))
-					ui.prompt(TRANSLATIONS.modal.image.heading, TRANSLATIONS.modal.image.dialog, TRANSLATIONS.modal.image.default, linkEnteredCallback);
+					ui.prompt(TEXT.modal.image.heading, TEXT.modal.image.dialog, TEXT.modal.image.default, linkEnteredCallback);
 			}
 			else {
-				ui.prompt(TRANSLATIONS.modal.link.heading, TRANSLATIONS.modal.link.dialog, TRANSLATIONS.modal.link.default, linkEnteredCallback);
+				ui.prompt(TEXT.modal.link.heading, TEXT.modal.link.dialog, TEXT.modal.link.default, linkEnteredCallback);
 			}
 			return true;
 		}
