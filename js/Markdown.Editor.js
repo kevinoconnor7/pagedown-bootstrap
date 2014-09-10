@@ -18,7 +18,7 @@
 		},
 
     TEXT = {
-			icons: {
+			icon: {
 				bold: "Bold - Ctrl+B",
 				italic: "Italic - Ctrl+I",
 				link: "Link - Ctrl+L",
@@ -35,7 +35,7 @@
 					default: "Redo - Ctrl+Shift+Z"
 				}
 			},
-			modals : {
+			modal : {
 				link: {
 					heading: "Insert Link",
 					dialog: "<code>http://example.com/ \"optional title\"</code>",
@@ -1402,36 +1402,36 @@
 			}
 
 			group1 = makeGroup(1);
-			buttons.bold = makeButton("wmd-bold-button", TEXT.icons.bold, "fa fa-bold", bindCommand("doBold"), group1);
-			buttons.italic = makeButton("wmd-italic-button", TEXT.icons.italic, "fa fa-italic", bindCommand("doItalic"), group1);
+			buttons.bold = makeButton("wmd-bold-button", TEXT.icon.bold, "fa fa-bold", bindCommand("doBold"), group1);
+			buttons.italic = makeButton("wmd-italic-button", TEXT.icon.italic, "fa fa-italic", bindCommand("doItalic"), group1);
 
 			group2 = makeGroup(2);
-			buttons.link = makeButton("wmd-link-button", TEXT.icons.link, "fa fa-link", bindCommand(function (chunk, postProcessing) {
+			buttons.link = makeButton("wmd-link-button", TEXT.icon.link, "fa fa-link", bindCommand(function (chunk, postProcessing) {
 				return this.doLinkOrImage(chunk, postProcessing, false);
 			}), group2);
-			buttons.quote = makeButton("wmd-quote-button", TEXT.icons.quote, "fa fa-quote-left", bindCommand("doBlockquote"), group2);
-			buttons.code = makeButton("wmd-code-button", TEXT.icons.code, "fa fa-code", bindCommand("doCode"), group2);
-			buttons.image = makeButton("wmd-image-button", TEXT.icons.image, "fa fa-picture-o", bindCommand(function (chunk, postProcessing) {
+			buttons.quote = makeButton("wmd-quote-button", TEXT.icon.quote, "fa fa-quote-left", bindCommand("doBlockquote"), group2);
+			buttons.code = makeButton("wmd-code-button", TEXT.icon.code, "fa fa-code", bindCommand("doCode"), group2);
+			buttons.image = makeButton("wmd-image-button", TEXT.icon.image, "fa fa-picture-o", bindCommand(function (chunk, postProcessing) {
 				return this.doLinkOrImage(chunk, postProcessing, true);
 			}), group2);
 
 			group3 = makeGroup(3);
-			buttons.olist = makeButton("wmd-olist-button", TEXT.icons.olist, "fa fa-list-ol", bindCommand(function (chunk, postProcessing) {
+			buttons.olist = makeButton("wmd-olist-button", TEXT.icon.olist, "fa fa-list-ol", bindCommand(function (chunk, postProcessing) {
 				this.doList(chunk, postProcessing, true);
 			}), group3);
-			buttons.ulist = makeButton("wmd-ulist-button", TEXT.icons.ulist, "fa fa-list-ul", bindCommand(function (chunk, postProcessing) {
+			buttons.ulist = makeButton("wmd-ulist-button", TEXT.icon.ulist, "fa fa-list-ul", bindCommand(function (chunk, postProcessing) {
 				this.doList(chunk, postProcessing, false);
 			}), group3);
-			buttons.heading = makeButton("wmd-heading-button", TEXT.icons.heading, "fa fa-header", bindCommand("doHeading"), group3);
-			buttons.hr = makeButton("wmd-hr-button", TEXT.icons.hr, "fa fa-ellipsis-h", bindCommand("doHorizontalRule"), group3);
+			buttons.heading = makeButton("wmd-heading-button", TEXT.icon.heading, "fa fa-header", bindCommand("doHeading"), group3);
+			buttons.hr = makeButton("wmd-hr-button", TEXT.icon.hr, "fa fa-ellipsis-h", bindCommand("doHorizontalRule"), group3);
 
 			group4 = makeGroup(4);
-			buttons.undo = makeButton("wmd-undo-button", TEXT.icons.undo, "fa fa-undo", null, group4);
+			buttons.undo = makeButton("wmd-undo-button", TEXT.icon.undo, "fa fa-undo", null, group4);
 			buttons.undo.execute = function (manager) { if (manager) manager.undo(); };
 
 			var redoTitle = /win/.test(nav.platform.toLowerCase()) ?
-				TEXT.icons.redo.default :
-				TEXT.icons.redo.alternative; // mac and other non-Windows platforms
+				TEXT.icon.redo.default :
+				TEXT.icon.redo.alternative; // mac and other non-Windows platforms
 
 			buttons.redo = makeButton("wmd-redo-button", redoTitle, "fa fa-rotate-right", null, group4);
 			buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
