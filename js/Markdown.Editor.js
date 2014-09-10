@@ -53,6 +53,12 @@
 			button: {
 				ok: "Ok",
 				cancel: "Cancel"
+			},
+			callback: {
+				description: {
+					image: "enter image description here",
+					link: "enter link description here"
+				}
 			}
 		}
 
@@ -1712,16 +1718,10 @@
 
 					if (!chunk.selection) {
 						if (isImage) {
-
-							if (descriptionText) {
-								chunk.selection = descriptionText;
-							} else {
-								chunk.selection = "enter image description here";
-							}
-
+								chunk.selection = TEXT.callback.description.image;
 						}
 						else {
-							chunk.selection = "enter link description here";
+							chunk.selection = TEXT.callback.description.image;
 						}
 					}
 				}
