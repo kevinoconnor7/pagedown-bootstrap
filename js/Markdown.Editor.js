@@ -95,7 +95,8 @@
 
 		this.getConverter = function () { return markdownConverter; }
 
-		TRANSLATIONS = $.extend(TRANSLATIONS, translations);
+		// merge text1 in to text2 (recursive)
+		$.extend(true, TRANSLATIONS, translations);
 
 		var that = this,
 			panels;
