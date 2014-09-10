@@ -17,7 +17,7 @@
 			isOpera: /opera/.test(nav.userAgent.toLowerCase())
 		},
 
-    TEXT = {
+		TEXT = {
 			icon: {
 				bold: "Bold - Ctrl+B",
 				italic: "Italic - Ctrl+I",
