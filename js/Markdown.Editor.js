@@ -1139,7 +1139,7 @@
 
 			// The cancel button
 			var cancelButton = doc.createElement("button");
-			cancelButton.className = "btn btn-danger";
+			cancelButton.className = "btn btn-info";
 			cancelButton.type = "button";
 			cancelButton.onclick = function () { return close(true); };
 			cancelButton.innerHTML = TEXT.button.cancel;
