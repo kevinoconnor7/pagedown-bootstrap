@@ -15,7 +15,39 @@
 			isIE: /msie/.test(nav.userAgent.toLowerCase()),
 			isIE_5or6: /msie 6/.test(nav.userAgent.toLowerCase()) || /msie 5/.test(nav.userAgent.toLowerCase()),
 			isOpera: /opera/.test(nav.userAgent.toLowerCase())
-		};
+		},
+
+    TRANSLATIONS = {
+			icons: {
+				bold: "Bold - Ctrl+B",
+				italic: "Italic - Ctrl+I",
+				link: "Link - Ctrl+L",
+				quote: "Blockquote - Ctrl+Q",
+				code: "Code Sample - Ctrl+K",
+				image: "Image - Ctrl+G",
+				olist: "Numbered List - Ctrl+O",
+				ulist: "Bulleted List - Ctrl+U",
+				heading: "Heading - Ctrl+H",
+				hr: "Horizontal Rule - Ctrl+R",
+				undo: "Undo - Ctrl+Z",
+				redo: {
+					alt: "Redo - Ctrl+Y",
+					default: "Redo - Ctrl+Shift+Z"
+				}
+			},
+			modals : {
+				link: {
+					heading: "Insert Link",
+					dialog: "<code>http://example.com/ \"optional title\"</code>",
+					default: "http://"
+				},
+				image: {
+					heading: "Insert Image",
+					dialog: "<code>http://example.com/images/diagram.jpg \"optional title\"</code>",
+					default: "http://"
+				}
+			}
+		}
 
 
 	// -------------------------------------------------------------------
@@ -1369,36 +1401,36 @@
 			}
 
 			group1 = makeGroup(1);
-			buttons.bold = makeButton("wmd-bold-button", "Bold - Ctrl+B", "fa fa-bold", bindCommand("doBold"), group1);
-			buttons.italic = makeButton("wmd-italic-button", "Italic - Ctrl+I", "fa fa-italic", bindCommand("doItalic"), group1);
+			buttons.bold = makeButton("wmd-bold-button", TRANSLATIONS.icons.bold, "fa fa-bold", bindCommand("doBold"), group1);
+			buttons.italic = makeButton("wmd-italic-button", TRANSLATIONS.icons.italic, "fa fa-italic", bindCommand("doItalic"), group1);
 
 			group2 = makeGroup(2);
-			buttons.link = makeButton("wmd-link-button", "Link - Ctrl+L", "fa fa-link", bindCommand(function (chunk, postProcessing) {
+			buttons.link = makeButton("wmd-link-button", TRANSLATIONS.icons.link, "fa fa-link", bindCommand(function (chunk, postProcessing) {
 				return this.doLinkOrImage(chunk, postProcessing, false);
 			}), group2);
-			buttons.quote = makeButton("wmd-quote-button", "Blockquote - Ctrl+Q", "fa fa-quote-left", bindCommand("doBlockquote"), group2);
-			buttons.code = makeButton("wmd-code-button", "Code Sample - Ctrl+K", "fa fa-code", bindCommand("doCode"), group2);
-			buttons.image = makeButton("wmd-image-button", "Image - Ctrl+G", "fa fa-picture-o", bindCommand(function (chunk, postProcessing) {
+			buttons.quote = makeButton("wmd-quote-button", TRANSLATIONS.icons.quote, "fa fa-quote-left", bindCommand("doBlockquote"), group2);
+			buttons.code = makeButton("wmd-code-button", TRANSLATIONS.icons.code, "fa fa-code", bindCommand("doCode"), group2);
+			buttons.image = makeButton("wmd-image-button", TRANSLATIONS.icons.image, "fa fa-picture-o", bindCommand(function (chunk, postProcessing) {
 				return this.doLinkOrImage(chunk, postProcessing, true);
 			}), group2);
 
 			group3 = makeGroup(3);
-			buttons.olist = makeButton("wmd-olist-button", "Numbered List - Ctrl+O", "fa fa-list-ol", bindCommand(function (chunk, postProcessing) {
+			buttons.olist = makeButton("wmd-olist-button", TRANSLATIONS.icons.olist, "fa fa-list-ol", bindCommand(function (chunk, postProcessing) {
 				this.doList(chunk, postProcessing, true);
 			}), group3);
-			buttons.ulist = makeButton("wmd-ulist-button", "Bulleted List - Ctrl+U", "fa fa-list-ul", bindCommand(function (chunk, postProcessing) {
+			buttons.ulist = makeButton("wmd-ulist-button", TRANSLATIONS.icons.ulist, "fa fa-list-ul", bindCommand(function (chunk, postProcessing) {
 				this.doList(chunk, postProcessing, false);
 			}), group3);
-			buttons.heading = makeButton("wmd-heading-button", "Heading - Ctrl+H", "fa fa-header", bindCommand("doHeading"), group3);
-			buttons.hr = makeButton("wmd-hr-button", "Horizontal Rule - Ctrl+R", "fa fa-ellipsis-h", bindCommand("doHorizontalRule"), group3);
+			buttons.heading = makeButton("wmd-heading-button", TRANSLATIONS.icons.heading, "fa fa-header", bindCommand("doHeading"), group3);
+			buttons.hr = makeButton("wmd-hr-button", TRANSLATIONS.icons.hr, "fa fa-ellipsis-h", bindCommand("doHorizontalRule"), group3);
 
 			group4 = makeGroup(4);
-			buttons.undo = makeButton("wmd-undo-button", "Undo - Ctrl+Z", "fa fa-undo", null, group4);
+			buttons.undo = makeButton("wmd-undo-button", TRANSLATIONS.icons.undo, "fa fa-undo", null, group4);
 			buttons.undo.execute = function (manager) { if (manager) manager.undo(); };
 
 			var redoTitle = /win/.test(nav.platform.toLowerCase()) ?
-				"Redo - Ctrl+Y" :
-				"Redo - Ctrl+Shift+Z"; // mac and other non-Windows platforms
+				TRANSLATIONS.icons.redo.default :
+				TRANSLATIONS.icons.redo.alt; // mac and other non-Windows platforms
 
 			buttons.redo = makeButton("wmd-redo-button", redoTitle, "fa fa-rotate-right", null, group4);
 			buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
@@ -1691,10 +1723,10 @@
 
 			if (isImage) {
 				if (!this.hooks.insertImageDialog(linkEnteredCallback))
-					ui.prompt('Insert Image', imageDialogText, imageDefaultText, linkEnteredCallback);
+					ui.prompt(TRANSLATIONS.modal.image.heading, TRANSLATIONS.modal.image.dialog, TRANSLATIONS.modal.image.default, linkEnteredCallback);
 			}
 			else {
-				ui.prompt('Insert Link', linkDialogText, linkDefaultText, linkEnteredCallback);
+				ui.prompt(TRANSLATIONS.modal.link.heading, TRANSLATIONS.modal.link.dialog, TRANSLATIONS.modal.link.default, linkEnteredCallback);
 			}
 			return true;
 		}
