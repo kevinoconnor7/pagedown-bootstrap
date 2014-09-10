@@ -38,7 +38,7 @@
 					hover: "Markdown Editing Help"
 				}
 			},
-			modal : {
+			modal: {
 				link: {
 					heading: "Insert Link",
 					dialog: "<code>http://example.com/ \"optional title\"</code>",
@@ -49,6 +49,10 @@
 					dialog: "<code>http://example.com/images/diagram.jpg \"optional title\"</code>",
 					default: "http://"
 				}
+			},
+			button: {
+				ok: "Ok",
+				cancel: "Cancel"
 			}
 		}
 
@@ -1131,14 +1135,14 @@
 			okButton.className = "btn btn-primary";
 			okButton.type = "button";
 			okButton.onclick = function () { return close(false); };
-			okButton.innerHTML = "OK";
+			okButton.innerHTML = TEXT.button.ok;
 
 			// The cancel button
 			var cancelButton = doc.createElement("button");
 			cancelButton.className = "btn btn-danger";
 			cancelButton.type = "button";
 			cancelButton.onclick = function () { return close(true); };
-			cancelButton.innerHTML = "Cancel";
+			cancelButton.innerHTML = TEXT.button.cancel;
 
 			footer.appendChild(okButton);
 			footer.appendChild(cancelButton);
