@@ -32,7 +32,8 @@
 			'help'						: null,
 			'hooks'						: Array(),
 			'converter_hooks'           : Array(),
-			'editor_hooks'              : Array()
+			'editor_hooks'              : Array(),
+			'translations':   {}
 		}, options);
 		settings.converter_hooks.concat(settings.hooks);
 
@@ -87,7 +88,7 @@
 			}
 
 			//Setup editor
-			var editor = new Markdown.Editor(converter, "-"+idAppend.toString(), help);
+			var editor = new Markdown.Editor(converter, "-"+idAppend.toString(), help, translations);
 			editor.run();
 			//Register editor hooks
 			for(var i in settings.editor_hooks)

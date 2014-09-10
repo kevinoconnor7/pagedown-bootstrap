@@ -81,7 +81,7 @@
 	// - getConverter() returns the markdown converter object that was passed to the constructor
 	// - run() actually starts the editor; should be called after all necessary plugins are registered. Calling this more than once is a no-op.
 	// - refreshPreview() forces the preview to be updated. This method is only available after run() was called.
-	Markdown.Editor = function (markdownConverter, idPostfix, help) {
+	Markdown.Editor = function (markdownConverter, idPostfix, help, translations) {
 
 		idPostfix = idPostfix || "";
 
@@ -128,6 +128,7 @@
 			forceRefresh();
 		};
 
+		TRANSLATIONS = $.merge(TRANSLATIONS, translations);
 	}
 
 	// before: contains all the text in the input box BEFORE the selection.
