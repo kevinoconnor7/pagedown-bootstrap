@@ -31,7 +31,7 @@
 				hr: "Horizontal Rule - Ctrl+R",
 				undo: "Undo - Ctrl+Z",
 				redo: {
-					alt: "Redo - Ctrl+Y",
+					alternative: "Redo - Ctrl+Y",
 					default: "Redo - Ctrl+Shift+Z"
 				}
 			},
@@ -1431,7 +1431,7 @@
 
 			var redoTitle = /win/.test(nav.platform.toLowerCase()) ?
 				TRANSLATIONS.icons.redo.default :
-				TRANSLATIONS.icons.redo.alt; // mac and other non-Windows platforms
+				TRANSLATIONS.icons.redo.alternative; // mac and other non-Windows platforms
 
 			buttons.redo = makeButton("wmd-redo-button", redoTitle, "fa fa-rotate-right", null, group4);
 			buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
