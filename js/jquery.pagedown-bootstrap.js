@@ -1,9 +1,9 @@
 /*
  * Pagedown Bootstrap
  * Author: Kevin O'Connor
- * Version: 1.0
+ * Version: 1.1
  *
- * Copyright (c) 2013 Kevin O'Connor
+ * Copyright (c) 2014 Kevin O'Connor
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -30,7 +30,8 @@
 		var settings = $.extend( {
 			'sanitize'				: true,
 			'help'						: null,
-			'hooks'						: Array()
+			'hooks'						: Array(),
+			'preview'                   : false
 		}, options);
 
 		return this.each(function() {   
@@ -83,9 +84,15 @@
 				help = { handler: settings.help };
 			}
 
+			//Setup preview
+			preview = false;
+			if ($.type(settings.preview) === "boolean"){
+				preview = settings.preview;
+			}
+
 			//Setup editor
 			var editor = new Markdown.Editor(converter, "-"+idAppend.toString(), help);
-      editor.run();
+	  editor.run();
 
 		});
 
