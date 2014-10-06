@@ -30,8 +30,11 @@
 	// <pre optional class="prettyprint linenums">|</pre> for twitter bootstrap
 	var pre_white = /^(<pre(\sclass="prettyprint linenums")?>|<\/pre>)$/i;
 
+	// <iframe optional tags></iframe>
+	var iframe_white = /^<iframe\s.*>|<\/iframe>/i;
+
 	function sanitizeTag(tag) {
-		if (tag.match(basic_tag_whitelist) || tag.match(a_white) || tag.match(img_white) || tag.match(pre_white))
+		if (tag.match(basic_tag_whitelist) || tag.match(a_white) || tag.match(img_white) || tag.match(pre_white) || tag.match(iframe_white))
 			return tag;
 		else
 			return "";
