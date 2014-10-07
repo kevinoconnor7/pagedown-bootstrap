@@ -1237,7 +1237,6 @@ else
 				return "<a href=\"" + link + "\">" + pluginHooks.plainLinkText(email) + "</a>";
 			}
 			text = text.replace(/<((?:mailto:)?([-.\w]+\@[-a-z0-9]+(\.[-a-z0-9]+)*\.[a-z]+))>/gi, email_replacer);
-			text = pluginHooks.plainLinkText(text);
 
 			return text;
 		}
