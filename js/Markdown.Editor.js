@@ -22,6 +22,7 @@
 				bold: "Bold - Ctrl+B",
 				italic: "Italic - Ctrl+I",
 				link: "Link - Ctrl+L",
+				video: "Video - Ctrl+L",
 				quote: "Blockquote - Ctrl+Q",
 				code: "Code Sample - Ctrl+K",
 				image: "Image - Ctrl+G",
@@ -1420,6 +1421,9 @@
 
 			group2 = makeGroup(2);
 			buttons.link = makeButton("wmd-link-button", TEXT.icon.link, "fa fa-link", bindCommand(function (chunk, postProcessing) {
+				return this.doLinkOrImage(chunk, postProcessing, false);
+			}), group2);
+			buttons.video = makeButton("wmd-video-button", TEXT.icon.video, "fa fa-video", bindCommand(function (chunk, postProcessing) {
 				return this.doLinkOrImage(chunk, postProcessing, false);
 			}), group2);
 			buttons.quote = makeButton("wmd-quote-button", TEXT.icon.quote, "fa fa-quote-left", bindCommand("doBlockquote"), group2);
