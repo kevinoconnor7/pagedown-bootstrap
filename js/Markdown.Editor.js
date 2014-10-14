@@ -49,6 +49,11 @@
 					heading: "Insert Image",
 					dialog: "<code>http://example.com/images/diagram.jpg \"optional title\"</code>",
 					default: "http://"
+				},
+				video: {
+					heading: "Insert Video",
+					dialog: "<code>http://example.com/images/diagram.jpg \"optional title\"</code>",
+					default: "http://"
 				}
 			},
 			button: {
@@ -1424,7 +1429,7 @@
 				return this.doLinkOrImage(chunk, postProcessing, false);
 			}), group2);
 			buttons.video = makeButton("wmd-video-button", TEXT.icon.video, "fa fa-video", bindCommand(function (chunk, postProcessing) {
-				return this.doLinkOrImage(chunk, postProcessing, false);
+				return this.doLinkOrImage(chunk, postProcessing, false, true);
 			}), group2);
 			buttons.quote = makeButton("wmd-quote-button", TEXT.icon.quote, "fa fa-quote-left", bindCommand("doBlockquote"), group2);
 			buttons.code = makeButton("wmd-code-button", TEXT.icon.code, "fa fa-code", bindCommand("doCode"), group2);
@@ -1663,7 +1668,7 @@
 		});
 	}
 
-	commandProto.doLinkOrImage = function (chunk, postProcessing, isImage) {
+	commandProto.doLinkOrImage = function (chunk, postProcessing, isImage, isVideo) {
 
 		chunk.trimWhitespace();
 		chunk.findTags(/\s*!?\[/, /\][ ]?(?:\n[ ]*)?(\[.*?\])?/);
@@ -1736,8 +1741,9 @@
 			if (isImage) {
 				if (!this.hooks.insertImageDialog(linkEnteredCallback))
 					ui.prompt(TEXT.modal.image.heading, TEXT.modal.image.dialog, TEXT.modal.image.default, linkEnteredCallback);
-			}
-			else {
+			} elseif (isVideo) {
+					ui.prompt(TEXT.modal.video.heading, TEXT.modal.video.dialog, TEXT.modal.video.default, linkEnteredCallback);
+			} else {
 				ui.prompt(TEXT.modal.link.heading, TEXT.modal.link.dialog, TEXT.modal.link.default, linkEnteredCallback);
 			}
 			return true;
