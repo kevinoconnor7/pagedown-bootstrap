@@ -1741,7 +1741,7 @@
 			if (isImage) {
 				if (!this.hooks.insertImageDialog(linkEnteredCallback))
 					ui.prompt(TEXT.modal.image.heading, TEXT.modal.image.dialog, TEXT.modal.image.default, linkEnteredCallback);
-			} elseif (isVideo) {
+			} else if (isVideo) {
 					ui.prompt(TEXT.modal.video.heading, TEXT.modal.video.dialog, TEXT.modal.video.default, linkEnteredCallback);
 			} else {
 				ui.prompt(TEXT.modal.link.heading, TEXT.modal.link.dialog, TEXT.modal.link.default, linkEnteredCallback);
