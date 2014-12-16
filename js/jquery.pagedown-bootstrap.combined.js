@@ -2694,7 +2694,7 @@ else
 				button.id = id + postfix;
 				button.appendChild(buttonImage);
 				button.title = title;
-				button.type = 'button'
+				button.type = 'button';
 				$(button).tooltip({placement: 'bottom', container: 'body'})
 				if (textOp)
 					button.textOp = textOp;
