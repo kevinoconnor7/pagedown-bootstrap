@@ -1,0 +1,11 @@
+{
+    "name": "pagedown-bootstrap",
+    "version": "0.0.4",
+    "main": [
+      "css/jquery.pagedown-bootstrap.css",
+      "js/*.js"
+    ],
+    "ignore": [
+      "*.txt"
+    ]
+}
