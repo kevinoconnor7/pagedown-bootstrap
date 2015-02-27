@@ -1730,7 +1730,7 @@
 								chunk.selection = TEXT.callback.description.image;
 						}
 						else {
-							chunk.selection = TEXT.callback.description.image;
+							chunk.selection = TEXT.callback.description.link;
 						}
 					}
 				}
