@@ -1432,7 +1432,7 @@
 			buttons.video = makeButton("wmd-video-button", TEXT.icon.video, "fa fa-video", bindCommand(function (chunk, postProcessing) {
 				return this.doLinkOrImage(chunk, postProcessing, false, true);
 			}), group2);
-			buttons.url = makeButton("wmd-url-button", TEXT.icon.url, "fa fa-url", bindCommand(function (chunk, postProcessing) {
+			buttons.url = makeButton("wmd-url-button", TEXT.icon.url, "fa fa-external-link", bindCommand(function (chunk, postProcessing) {
 				return this.doLinkOrImage(chunk, postProcessing, false, true);
 			}), group2);
 			buttons.quote = makeButton("wmd-quote-button", TEXT.icon.quote, "fa fa-quote-left", bindCommand("doBlockquote"), group2);
