@@ -55,6 +55,11 @@
 					heading: "Insert Video",
 					dialog: "<code>http://example.com/images/diagram.jpg \"optional title\"</code>",
 					default: "http://"
+				},
+				url: {
+					heading: "Insert URL",
+					dialog: "<code>http://example.com/images/diagram.jpg \"optional title\"</code>",
+					default: "http://"
 				}
 			},
 			button: {
@@ -1432,8 +1437,8 @@
 			buttons.video = makeButton("wmd-video-button", TEXT.icon.video, "fa fa-video", bindCommand(function (chunk, postProcessing) {
 				return this.doLinkOrImage(chunk, postProcessing, false, true);
 			}), group2);
-			buttons.url = makeButton("wmd-url-button", TEXT.icon.url, "fa fa-external-link", bindCommand(function (chunk, postProcessing) {
-				return this.doLinkOrImage(chunk, postProcessing, false, true);
+			buttons.url = makeButton("wmd-url-button", TEXT.icon.url, "fa fa-link", bindCommand(function (chunk, postProcessing) {
+				return this.doLinkOrImage(chunk, postProcessing, false, false, true);
 			}), group2);
 			buttons.quote = makeButton("wmd-quote-button", TEXT.icon.quote, "fa fa-quote-left", bindCommand("doBlockquote"), group2);
 			buttons.code = makeButton("wmd-code-button", TEXT.icon.code, "fa fa-code", bindCommand("doCode"), group2);
@@ -1672,7 +1677,7 @@
 		});
 	}
 
-	commandProto.doLinkOrImage = function (chunk, postProcessing, isImage, isVideo) {
+	commandProto.doLinkOrImage = function (chunk, postProcessing, isImage, isVideo, isUrl) {
 
 		chunk.trimWhitespace();
 		chunk.findTags(/\s*!?\[/, /\][ ]?(?:\n[ ]*)?(\[.*?\])?/);
@@ -1747,6 +1752,8 @@
 					ui.prompt(TEXT.modal.image.heading, TEXT.modal.image.dialog, TEXT.modal.image.default, linkEnteredCallback);
 			} else if (isVideo) {
 					ui.prompt(TEXT.modal.video.heading, TEXT.modal.video.dialog, TEXT.modal.video.default, linkEnteredCallback);
+			} else if (isUrl) {
+					ui.prompt(TEXT.modal.url.heading, TEXT.modal.url.dialog, TEXT.modal.url.default, linkEnteredCallback);
 			} else {
 				ui.prompt(TEXT.modal.link.heading, TEXT.modal.link.dialog, TEXT.modal.link.default, linkEnteredCallback);
 			}
