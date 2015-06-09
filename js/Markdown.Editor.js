@@ -71,7 +71,8 @@
 					image: "enter image description here",
 					link: "enter link description here"
 				}
-			}
+			},
+            graphMetadataEnabled: ""
 		}
 
 
@@ -107,6 +108,7 @@
 	// - run() actually starts the editor; should be called after all necessary plugins are registered. Calling this more than once is a no-op.
 	// - refreshPreview() forces the preview to be updated. This method is only available after run() was called.
 	Markdown.Editor = function (markdownConverter, idPostfix, help, text) {
+        help.graphMetadataEnabled = text.graphMetadataEnabled;
 
 		idPostfix = idPostfix || "";
 
@@ -1437,9 +1439,13 @@
 			buttons.video = makeButton("wmd-video-button", TEXT.icon.video, "fa fa-video", bindCommand(function (chunk, postProcessing) {
 				return this.doLinkOrImage(chunk, postProcessing, false, true);
 			}), group2);
-			buttons.url = makeButton("wmd-url-button", TEXT.icon.url, "fa fa-link", bindCommand(function (chunk, postProcessing) {
-				return this.doLinkOrImage(chunk, postProcessing, false, false, true);
-			}), group2);
+
+            if (helpOptions.graphMetadataEnabled) {
+                buttons.url = makeButton("wmd-url-button", TEXT.icon.url, "fa fa-link", bindCommand(function (chunk, postProcessing) {
+                    return this.doLinkOrImage(chunk, postProcessing, false, false, true);
+                }), group2);
+            }
+
 			buttons.quote = makeButton("wmd-quote-button", TEXT.icon.quote, "fa fa-quote-left", bindCommand("doBlockquote"), group2);
 			buttons.code = makeButton("wmd-code-button", TEXT.icon.code, "fa fa-code", bindCommand("doCode"), group2);
 			buttons.image = makeButton("wmd-image-button", TEXT.icon.image, "fa fa-picture-o", bindCommand(function (chunk, postProcessing) {
@@ -1467,7 +1473,7 @@
 			buttons.redo = makeButton("wmd-redo-button", redoTitle, "fa fa-rotate-right", null, group4);
 			buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
 
-			if (helpOptions) {
+			if (helpOptions.title) {
 				group5 = makeGroup(5);
 				group5.className = group5.className + " pull-right";
 				var helpButton = document.createElement("button");
