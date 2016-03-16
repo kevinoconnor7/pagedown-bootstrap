@@ -17,7 +17,7 @@ A **jQuery** plugin that dynamically generates a **WYSIWYG** editor for **Markdo
 * Changed to FontAwesome as the icon provider
 
 ## Demo & Documentation
-[http://kevin.oconnor.mp/pagedown-bootstrap](http://kevin.oconnor.mp/pagedown-bootstrap)
+[http://kevo.io/pagedown-bootstrap/](http://kevo.io/pagedown-bootstrap/)
 
 ## Thanks
 * Editor and converter written by the [Pagedown](http://code.google.com/p/pagedown/) project.
