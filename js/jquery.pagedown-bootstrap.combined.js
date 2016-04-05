@@ -2755,7 +2755,7 @@ else
 				var helpButtonImage = document.createElement("i");
 				helpButtonImage.className = "fa fa-question";
 				helpButton.appendChild(helpButtonImage);
-				helpButton.className = "btn";
+				helpButton.className = "btn btn-default";
 				helpButton.id = "wmd-help-button" + postfix;
 				helpButton.isHelp = true;
 				helpButton.title = helpOptions.title || defaultHelpHoverTitle;
