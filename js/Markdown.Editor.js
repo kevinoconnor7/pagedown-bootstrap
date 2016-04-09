@@ -88,7 +88,7 @@
 				}
 			}
 
-			uiManager = new UIManager(idPostfix, panels, undoManager, previewManager, commandManager, help);
+			uiManager = new UIManager(idPostfix, panels, undoManager, previewManager, commandManager, help, preview);
 			uiManager.setUndoRedoButtonStates();
 
 			var forceRefresh = that.refreshPreview = function () { previewManager.refresh(true); };
@@ -1145,7 +1145,7 @@
 		}, 0);
 	};
 
-	function UIManager(postfix, panels, undoManager, previewManager, commandManager, helpOptions) {
+	function UIManager(postfix, panels, undoManager, previewManager, commandManager, helpOptions, previewOptions) {
 
 		var inputBox = panels.input,
 			buttons = {}; // buttons.undo, buttons.link, etc. The actual DOM elements.
@@ -1198,6 +1198,9 @@
 						break;
 					case "y":
 						doClick(buttons.redo);
+						break;
+					case "p":
+						doClick(buttons.preview);
 						break;
 					case "z":
 						if (key.shiftKey) {
@@ -1403,9 +1406,21 @@
 			buttons.redo = makeButton("wmd-redo-button", redoTitle, "fa fa-rotate-right", null, group4);
 			buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
 
-			if (helpOptions) {
+			if (previewOptions) {
 				group5 = makeGroup(5);
 				group5.className = group5.className + " pull-right";
+				buttons.preview = makeButton("wmd-preview-button", "Show/Hide Preview - Crtl + p", "fa fa-eye", null, group5);
+				buttons.preview.execute = function () { if ( panels && panels.preview ) $(panels.preview).fadeToggle(); }
+				group5.appendChild(buttons.preview);
+
+			}
+
+			if (helpOptions) {
+				if ( typeof(group5) == "undefined" ) 
+				{
+				group5 = makeGroup(5);
+				group5.className = group5.className + " pull-right";
+				}
 				var helpButton = document.createElement("button");
 				var helpButtonImage = document.createElement("i");
 				helpButtonImage.className = "fa fa-question";

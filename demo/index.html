@@ -8,8 +8,8 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 	<link href="../css/jquery.pagedown-bootstrap.css" rel="stylesheet">
 
 	<style>
@@ -23,9 +23,9 @@
 	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="../js/jquery.pagedown-bootstrap.combined.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.pagedown-bootstrap.combined.js"></script>
 
 </head>
 <body>
@@ -139,7 +139,7 @@ This is the *second* editor.
 
 It has a plugin hook registered that surrounds all words starting with the
 letter A with asterisks before doing the Markdown conversion. Another one gives bare links
-a nicer link text. User input isn't sanitized here:
+a nicer link text. An optional button is added to toggle preview. User input isn't sanitized here:
 
 <marquee>I'm the ghost from the past!</marquee>
 
@@ -161,6 +161,7 @@ It also includes a help button.
 			$("textarea#pagedownMeDangerously").pagedownBootstrap({
 				'sanitize': false,
 				'help': function () { alert("Do you need help?"); },
+				'preview':  true,
 				'hooks': [
 					{
 						'event': 'preConversion',
