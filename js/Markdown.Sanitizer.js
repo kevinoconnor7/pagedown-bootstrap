@@ -1,4 +1,4 @@
-(function () {
+(function ($) {
 	var output, Converter;
 	if (typeof exports === "object" && typeof require === "function") { // we're in a CommonJS (e.g. Node.js) module
 		output = exports;
@@ -7,7 +7,7 @@
 		output = window.Markdown;
 		Converter = output.Converter;
 	}
-		
+
 	output.getSanitizingConverter = function () {
 		var converter = new Converter();
 		converter.hooks.chain("postConversion", sanitizeHtml);
@@ -40,9 +40,9 @@
 	/// <summary>
 	/// attempt to balance HTML tags in the html string
 	/// by removing any unmatched opening or closing tags
-	/// IMPORTANT: we *assume* HTML has *already* been 
+	/// IMPORTANT: we *assume* HTML has *already* been
 	/// sanitized and is safe/sane before balancing!
-	/// 
+	///
 	/// adapted from CODESNIPPET: A8591DBA-D1D3-11DE-947C-BA5556D89593
 	/// </summary>
 	function balanceTags(html) {
@@ -108,4 +108,4 @@
 		});
 		return html;
 	}
-})();
+})( jQuery );
