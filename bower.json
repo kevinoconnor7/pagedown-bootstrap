@@ -1,0 +1,15 @@
+{
+    "name": "pagedown-bootstrap",
+    "version": "1.7",
+    "homepage": "https://github.com/VoycerAG/pagedown-bootstrap",
+    "authors": [
+        "Kevin O'Connor <kevin@kevo.io>"
+    ],
+    "description": "Markdown wysiwyg editor with bootstrap styling.",
+    "main": [
+        "*"
+    ],
+    "ignore": [
+        "/*/demo"
+    ]
+}

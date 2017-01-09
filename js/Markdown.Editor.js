@@ -1,6 +1,6 @@
 ﻿// needs Markdown.Converter.js at the moment
 
-(function () {
+(function ($) {
 
 	var util = {},
 		position = {},
@@ -15,7 +15,58 @@
 			isIE: /msie/.test(nav.userAgent.toLowerCase()),
 			isIE_5or6: /msie 6/.test(nav.userAgent.toLowerCase()) || /msie 5/.test(nav.userAgent.toLowerCase()),
 			isOpera: /opera/.test(nav.userAgent.toLowerCase())
-		};
+		},
+
+		TEXT = {
+			icon: {
+				bold: "Bold - Ctrl+B",
+				italic: "Italic - Ctrl+I",
+				link: "Link - Ctrl+L",
+				video: "Video - Ctrl+L",
+				quote: "Blockquote - Ctrl+Q",
+				code: "Code Sample - Ctrl+K",
+				image: "Image - Ctrl+G",
+				olist: "Numbered List - Ctrl+O",
+				ulist: "Bulleted List - Ctrl+U",
+				heading: "Heading - Ctrl+H",
+				hr: "Horizontal Rule - Ctrl+R",
+				undo: "Undo - Ctrl+Z",
+				redo: {
+					alternative: "Redo - Ctrl+Y",
+					default: "Redo - Ctrl+Shift+Z"
+				},
+				help: {
+					hover: "Markdown Editing Help"
+				}
+			},
+			modal: {
+				link: {
+					heading: "Insert Link",
+					dialog: "<code>http://example.com/ \"optional title\"</code>",
+					default: "http://"
+				},
+				image: {
+					heading: "Insert Image",
+					dialog: "<code>http://example.com/images/diagram.jpg \"optional title\"</code>",
+					default: "http://"
+				},
+				video: {
+					heading: "Insert Video",
+					dialog: "<code>http://example.com/images/diagram.jpg \"optional title\"</code>",
+					default: "http://"
+				}
+			},
+			button: {
+				ok: "Ok",
+				cancel: "Cancel"
+			},
+			callback: {
+				description: {
+					image: "enter image description here",
+					link: "enter link description here"
+				}
+			}
+		}
 
 
 	// -------------------------------------------------------------------
@@ -49,7 +100,7 @@
 	// - getConverter() returns the markdown converter object that was passed to the constructor
 	// - run() actually starts the editor; should be called after all necessary plugins are registered. Calling this more than once is a no-op.
 	// - refreshPreview() forces the preview to be updated. This method is only available after run() was called.
-	Markdown.Editor = function (markdownConverter, idPostfix, help) {
+	Markdown.Editor = function (markdownConverter, idPostfix, help, text) {
 
 		idPostfix = idPostfix || "";
 
@@ -62,6 +113,8 @@
 												  */
 
 		this.getConverter = function () { return markdownConverter; }
+
+		$.extend(true, TEXT, text);
 
 		var that = this,
 			panels;
@@ -95,7 +148,6 @@
 
 			forceRefresh();
 		};
-
 	}
 
 	// before: contains all the text in the input box BEFORE the selection.
@@ -1095,14 +1147,14 @@
 			okButton.className = "btn btn-primary";
 			okButton.type = "button";
 			okButton.onclick = function () { return close(false); };
-			okButton.innerHTML = "OK";
+			okButton.innerHTML = TEXT.button.ok;
 
 			// The cancel button
 			var cancelButton = doc.createElement("button");
-			cancelButton.className = "btn btn-danger";
+			cancelButton.className = "btn btn-info";
 			cancelButton.type = "button";
 			cancelButton.onclick = function () { return close(true); };
-			cancelButton.innerHTML = "Cancel";
+			cancelButton.innerHTML = TEXT.button.cancel;
 
 			footer.appendChild(okButton);
 			footer.appendChild(cancelButton);
@@ -1369,36 +1421,39 @@
 			}
 
 			group1 = makeGroup(1);
-			buttons.bold = makeButton("wmd-bold-button", "Bold - Ctrl+B", "fa fa-bold", bindCommand("doBold"), group1);
-			buttons.italic = makeButton("wmd-italic-button", "Italic - Ctrl+I", "fa fa-italic", bindCommand("doItalic"), group1);
+			buttons.bold = makeButton("wmd-bold-button", TEXT.icon.bold, "fa fa-bold", bindCommand("doBold"), group1);
+			buttons.italic = makeButton("wmd-italic-button", TEXT.icon.italic, "fa fa-italic", bindCommand("doItalic"), group1);
 
 			group2 = makeGroup(2);
-			buttons.link = makeButton("wmd-link-button", "Link - Ctrl+L", "fa fa-link", bindCommand(function (chunk, postProcessing) {
+			buttons.link = makeButton("wmd-link-button", TEXT.icon.link, "fa fa-link", bindCommand(function (chunk, postProcessing) {
 				return this.doLinkOrImage(chunk, postProcessing, false);
 			}), group2);
-			buttons.quote = makeButton("wmd-quote-button", "Blockquote - Ctrl+Q", "fa fa-quote-left", bindCommand("doBlockquote"), group2);
-			buttons.code = makeButton("wmd-code-button", "Code Sample - Ctrl+K", "fa fa-code", bindCommand("doCode"), group2);
-			buttons.image = makeButton("wmd-image-button", "Image - Ctrl+G", "fa fa-picture-o", bindCommand(function (chunk, postProcessing) {
+			buttons.video = makeButton("wmd-video-button", TEXT.icon.video, "fa fa-video", bindCommand(function (chunk, postProcessing) {
+				return this.doLinkOrImage(chunk, postProcessing, false, true);
+			}), group2);
+			buttons.quote = makeButton("wmd-quote-button", TEXT.icon.quote, "fa fa-quote-left", bindCommand("doBlockquote"), group2);
+			buttons.code = makeButton("wmd-code-button", TEXT.icon.code, "fa fa-code", bindCommand("doCode"), group2);
+			buttons.image = makeButton("wmd-image-button", TEXT.icon.image, "fa fa-picture-o", bindCommand(function (chunk, postProcessing) {
 				return this.doLinkOrImage(chunk, postProcessing, true);
 			}), group2);
 
 			group3 = makeGroup(3);
-			buttons.olist = makeButton("wmd-olist-button", "Numbered List - Ctrl+O", "fa fa-list-ol", bindCommand(function (chunk, postProcessing) {
+			buttons.olist = makeButton("wmd-olist-button", TEXT.icon.olist, "fa fa-list-ol", bindCommand(function (chunk, postProcessing) {
 				this.doList(chunk, postProcessing, true);
 			}), group3);
-			buttons.ulist = makeButton("wmd-ulist-button", "Bulleted List - Ctrl+U", "fa fa-list-ul", bindCommand(function (chunk, postProcessing) {
+			buttons.ulist = makeButton("wmd-ulist-button", TEXT.icon.ulist, "fa fa-list-ul", bindCommand(function (chunk, postProcessing) {
 				this.doList(chunk, postProcessing, false);
 			}), group3);
-			buttons.heading = makeButton("wmd-heading-button", "Heading - Ctrl+H", "fa fa-header", bindCommand("doHeading"), group3);
-			buttons.hr = makeButton("wmd-hr-button", "Horizontal Rule - Ctrl+R", "fa fa-ellipsis-h", bindCommand("doHorizontalRule"), group3);
+			buttons.heading = makeButton("wmd-heading-button", TEXT.icon.heading, "fa fa-header", bindCommand("doHeading"), group3);
+			buttons.hr = makeButton("wmd-hr-button", TEXT.icon.hr, "fa fa-ellipsis-h", bindCommand("doHorizontalRule"), group3);
 
 			group4 = makeGroup(4);
-			buttons.undo = makeButton("wmd-undo-button", "Undo - Ctrl+Z", "fa fa-undo", null, group4);
+			buttons.undo = makeButton("wmd-undo-button", TEXT.icon.undo, "fa fa-undo", null, group4);
 			buttons.undo.execute = function (manager) { if (manager) manager.undo(); };
 
 			var redoTitle = /win/.test(nav.platform.toLowerCase()) ?
-				"Redo - Ctrl+Y" :
-				"Redo - Ctrl+Shift+Z"; // mac and other non-Windows platforms
+				TEXT.icon.redo.default :
+				TEXT.icon.redo.alternative; // mac and other non-Windows platforms
 
 			buttons.redo = makeButton("wmd-redo-button", redoTitle, "fa fa-rotate-right", null, group4);
 			buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
@@ -1413,7 +1468,7 @@
 				helpButton.className = "btn";
 				helpButton.id = "wmd-help-button" + postfix;
 				helpButton.isHelp = true;
-				helpButton.title = helpOptions.title || defaultHelpHoverTitle;
+				helpButton.title = helpOptions.title || TEXT.buttons.help.hover;
 				$(helpButton).tooltip({placement: 'bottom', container: 'body'})
 				helpButton.onclick = helpOptions.handler;
 
@@ -1613,7 +1668,7 @@
 		});
 	}
 
-	commandProto.doLinkOrImage = function (chunk, postProcessing, isImage) {
+	commandProto.doLinkOrImage = function (chunk, postProcessing, isImage, isVideo) {
 
 		chunk.trimWhitespace();
 		chunk.findTags(/\s*!?\[/, /\][ ]?(?:\n[ ]*)?(\[.*?\])?/);
@@ -1641,7 +1696,7 @@
 			var that = this;
 			// The function to be executed when you enter a link and press OK or Cancel.
 			// Marks up the link and adds the ref.
-			var linkEnteredCallback = function (link) {
+			var linkEnteredCallback = function (link, descriptionText) {
 
 				if (link !== null) {
 					// (                          $1
@@ -1672,10 +1727,10 @@
 
 					if (!chunk.selection) {
 						if (isImage) {
-							chunk.selection = "enter image description here";
+								chunk.selection = TEXT.callback.description.image;
 						}
 						else {
-							chunk.selection = "enter link description here";
+							chunk.selection = TEXT.callback.description.image;
 						}
 					}
 				}
@@ -1685,10 +1740,11 @@
 
 			if (isImage) {
 				if (!this.hooks.insertImageDialog(linkEnteredCallback))
-					ui.prompt('Insert Image', imageDialogText, imageDefaultText, linkEnteredCallback);
-			}
-			else {
-				ui.prompt('Insert Link', linkDialogText, linkDefaultText, linkEnteredCallback);
+					ui.prompt(TEXT.modal.image.heading, TEXT.modal.image.dialog, TEXT.modal.image.default, linkEnteredCallback);
+			} elseif (isVideo) {
+					ui.prompt(TEXT.modal.video.heading, TEXT.modal.video.dialog, TEXT.modal.video.default, linkEnteredCallback);
+			} else {
+				ui.prompt(TEXT.modal.link.heading, TEXT.modal.link.dialog, TEXT.modal.link.default, linkEnteredCallback);
 			}
 			return true;
 		}
@@ -2117,4 +2173,4 @@
 	}
 
 
-})();
+})( jQuery );
